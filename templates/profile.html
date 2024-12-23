@@ -1,0 +1,132 @@
+{% extends "layout.html" %}
+{% block title %}Profile{% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block content %}
+<div class="container py-3 py-md-5">
+  <div class="row g-2 g-md-3">
+    <div class="col-md-9">
+      <h1 class="display-6">Hello, {{ user.name }}</h1>
+    </div>
+    <div class="col-md-3">
+      <p class="small text-muted text-md-end mb-0">Logged in as: {{ user.email }}</p>
+    </div>
+    <div class="col-md-6 col-lg-5 col-xl-4">
+      <div class="accordion" id="accordionFormContainer">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="addAddressHeading">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#addAddressCollapse" aria-expanded="false" aria-controls="addAddressCollapse">
+              Add Shipping Address
+            </button>
+          </h2>
+          <div id="addAddressCollapse" class="accordion-collapse collapse" aria-labelledby="addAddressHeading"
+            data-bs-parent="#accordionFormContainer">
+            <div class="accordion-body">
+              <div class="card card-body shadow border-0">
+                <form id="frmAddAddress">
+                  <div class="row g-3">
+                    <div class="col-12">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" name="address_title" id="address_title"
+                          placeholder="Enter Address Title" maxlength="255" required>
+                        <label for="address_title">Title</label>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-floating">
+                        <textarea class="form-control" name="address_full" id="address_full"
+                          placeholder="Enter Full Address" maxlength="255" style="height: 100px;" required></textarea>
+                        <label for="address_full">Address</label>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" name="address_city" id="address_city"
+                          placeholder="Enter Your City" maxlength="255" required />
+                        <label for="address_city">City</label>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-floating">
+                        <select class="form-select" name="address_state" id="address_state" required>
+                          <option value="" disabled selected>Select State/Province</option>
+                          <option value="Maharashtra">Maharashtra</option>
+                        </select>
+                        <label for="address_state">State</label>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" name="address_pincode" id="address_pincode"
+                          placeholder="Enter Your Postal Code" inputmode="numeric" maxlength="6" required />
+                        <label for="address_pincode">Postal Code</label>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" name="address_contact" id="address_contact"
+                          placeholder="Enter Contact Number" inputmode="numeric" maxlength="10" required />
+                        <label for="address_contact">Contact</label>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <button class="btn btn-success w-100">Save</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-7 col-xl-8">
+      {% if addressCount %}
+      <div class="accordion" id="accordionAddresses">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="shippingAddressesHeading">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+              data-bs-target="#addressesAccordion" aria-expanded="true" aria-controls="addressesAccordion">
+              Shipping Addresses
+            </button>
+          </h2>
+          <div id="addressesAccordion" class="accordion-collapse collapse show"
+            aria-labelledby="shippingAddressesHeading" data-bs-parent="#accordionAddresses">
+            <div class="accordion-body">
+              {% if addresses|length %}
+              <div class="row g-3">
+                {% for address in addresses %}
+                <div class="col-md-6 col-xl-4">
+                  <div class="card shadow border-0 h-100">
+                    <div class="card-body">
+                      <h5>{{ address.title }}</h5>
+                      <div class="text-muted">
+                        <span class="d-block">{{ address.full }} {{ address.pincode }}</span>
+                        <span class="d-block">{{ address.state }}</span>
+                      </div>
+                    </div>
+                    <div class="card-footer bg-transparent border-0">
+                      <a href="tel:+91{{address.contact}}" class="link-danger">
+                        <i class="fa-solid fa-phone me-1"></i>{{ address.contact }}</a>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <h4 class="text-danger">No addresses found.</h4>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="/static/js/profile.js" type="text/javascript"></script>
+{% endblock %}

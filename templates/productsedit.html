@@ -1,0 +1,28 @@
+{% extends "adminLayout.html" %}
+{% block body %}
+ 
+  <div class="row">
+    <div class="col-md-4 offset-md-4">
+      <div class="card card-body">
+        <form action="/productupdate/{{product[0]}}" method="POST" enctype="multipart/form-data">
+          
+          <div class="form-group">
+            <input type="text" class="form-control" name="name" value="{{product[1]}}" placeholder="Name">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="description" value="{{product[2]}}" placeholder="Description">
+          </div>
+          <div class="form-group">
+				    <label>Photo</label>
+				    <input type="file" class="form-control" name="thumbnail" />
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">
+              Update
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

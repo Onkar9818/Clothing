@@ -1,0 +1,44 @@
+{% extends "adminLayout.html" %}
+{% block body %}
+
+<div class="w3-sidebar w3-light-grey w3-bar-block" style="width:15%">
+  <h3 class="w3-bar-item">Menu</h3>
+  <a href="/home" class="w3-bar-item w3-button">Product Categories</a>
+  <a href="/products" class="w3-bar-item w3-button">Products</a>
+  <a href="/pspecific" class="w3-bar-item w3-button">Product Specification</a>
+  <a href="/reports" class="w3-bar-item w3-button">Reports</a>
+</div>
+
+    <div class="row" style="margin-left:15%"><h3>Reports</h3></div>
+
+  <div class="row" style="margin-left:14%">
+    <div class="col-md-4" >
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">x</span>
+        </button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+      <div class="card card-body">
+        <form action="/download/userreport/pdf" method="POST">
+          <button class="w3-bar-item w3-button"> Download User Report as PDF</button><br><br>
+        </form>
+        <form action="/download/productreport/pdf" method="POST">
+          <button class="w3-bar-item w3-button"> Download Product Report as PDF</button><br><br>
+        </form>
+        <form action="/download/cartreport/pdf" method="POST">
+          <button class="w3-bar-item w3-button"> Download Cart Report as PDF</button><br><br>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

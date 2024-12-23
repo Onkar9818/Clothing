@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block head %}
+{{ super() }}
+<style>
+  .carousel-inner img {
+    max-height: 800px;
+    object-fit: cover;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<div id="carouselHero" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="/static/images/hero-1.png" class="d-block w-100" alt="Hero Image">
+    </div>
+    <div class="carousel-item">
+      <img src="/static/images/hero-2.png" class="d-block w-100" alt="Hero Image">
+    </div>
+  </div>
+</div>
+<div class="container py-3 py-md-5">
+  <div class="row g-4">
+    {% if products|length %}
+    {% for product in products %}
+    <div class="col-md-3">
+      <div class="card border-0 shadow">
+        <img src="/static/{{ product.thumbnail }}" alt="{{ product.title }}" class="card-img-top">
+        <div class="card-body">
+          <h5>{{ product.title }}</h5>
+          <h4>{{ product.price|currency_format }}</h4>
+          <p class="text-muted small mb-0">Available in {{ product.variants }} sizes</p>
+        </div>
+        <a href="{{ url_for('product', product_id=product.id) }}" class="stretched-link"></a>
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="col-12">
+      <h3 class="fw-bold text-danger">No products found.</h3>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

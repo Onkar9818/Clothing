@@ -1,0 +1,36 @@
+:root {
+  --bs-font-sans-serif: Jost !important;
+}
+
+#main-navbar .navbar-brand img {
+  height: 60px;
+  width: auto;
+  object-fit: cover;
+}
+
+.cart-icon {
+  position: relative;
+}
+
+.cart-icon .badge {
+  background-color: var(--bs-danger);
+  color: var(--bs-white);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-weight: 300;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body.swal2-height-auto {
+  height: 100% !important;
+}
+
+.swal2-actions {
+  gap: 0.75rem;
+}

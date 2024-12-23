@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block title %}Orders{% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block content %}
+<div class="container py-3 py-md-5">
+  <div class="row g-2 g-md-3">
+    {% if orders|length %}
+    <div class="col-12">
+      <h2 class="text-center"><i class="fa-solid fa-box-open me-2"></i>Your Orders</h2>
+    </div>
+    {% for order in orders %}
+    <div class="col-md-4">
+      <div class="card shadow-sm border-0">
+        <div class="card-header">
+          <h6 class="text-danger text-uppercase card-title mb-0">{{ order.uuid }}</h6>
+        </div>
+        <div class="card-body">
+          <p class="lead text-danger-emphasis mb-0">{{ order.grand_total|currency_format }}</p>
+          <p class="small mb-1">Shipping to: {{ order.shipto }}</p>
+          <p class="small mb-1">Mode: {{ order.pay_mode }}</p>
+          <small>Placed on: {{ order.date.strftime('%d/%m/%Y %H:%M %p') }}</small>
+        </div>
+        <a href="/order-details/{{order.id}}" class="stretched-link"></a>
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="col-12 text-center">
+      <h1 class="text-danger"><i class="fa-solid fa-sad-tear"></i></h1>
+      <h3 class="fw-bold text-danger">No orders found.</h3>
+      <a href="{{ url_for('shop') }}" class="btn btn-success btn-lg rounded-1">
+        <i class="fa-solid fa-store-alt me-2"></i>Shop now!</a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+</script>
+{% endblock %}

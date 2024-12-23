@@ -1,0 +1,146 @@
+{% extends "adminLayout.html" %}
+{% block body %}
+
+<div class="w3-sidebar w3-light-grey w3-bar-block" style="width:15%">
+  <h3 class="w3-bar-item">Menu</h3>
+  <a href="/home" class="w3-bar-item w3-button">Product Categories</a>
+  <a href="/products" class="w3-bar-item w3-button">Products</a>
+  <a href="/pspecific" class="w3-bar-item w3-button">Product Specification</a>
+  <a href="/reports" class="w3-bar-item w3-button">Reports</a>
+</div>
+
+    <div class="row" style="margin-left:15%"><h3>Products Specification</h3></div>
+
+  <div class="row" style="margin-left:14%">
+    <div class="col-md-4" >
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">x</span>
+        </button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+      <div class="card card-body">
+        <form action="{{url_for('pspecific1')}}" method="POST">
+          
+          <div class="form-group"> 
+            <select name="pid" id="pid" onchange="function1()">
+                {% for data1 in product1 %}
+                <option value="{{data1[0]}}">{{data1[0]}}</option>
+                {% endfor %}
+            </select>
+          </div>
+          {% set q=namespace(n2=0) %}
+          {% for data in data11 %}
+          <input type="hidden" name="productid" value={{data[0]}} id="productid{{q.n2}}">
+          <input type="hidden" name="productname" value={{data[1]}} id="productname{{q.n2}}">
+          {% set q.n2=q.n2+1 %}
+          {% endfor %}
+          <input type="hidden" value={{l1}} name="length" id="length">
+          <div class="form-group">
+            <span id="name"></span>
+          </div>
+          
+          <!-- <div class="form-group">
+            <input type="text" class="form-control" name="size" placeholder="Size">
+          </div> -->
+          <div class="form-group">
+            <input type="radio" id="s" name="size" value="S">
+             <label for="s">S</label>&nbsp;&nbsp;
+            <input type="radio" id="m" name="size" value="M">
+             <label for="m">M</label>&nbsp;&nbsp;
+            <input type="radio" id="l" name="size" value="L">
+             <label for="l">L</label>&nbsp;&nbsp;
+            <input type="radio" id="xl" name="size" value="XL">
+             <label for="xl">XL</label>&nbsp;&nbsp;
+            <input type="radio" id="xxl" name="size" value="XXL">
+             <label for="xxl">XXL</label>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="quantity" placeholder="Quantity">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="price" placeholder="Price">
+          </div>
+
+          <button class="btn btn-primary btn-block">
+            Save 
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <table id="example" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Size</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Pro_id</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for data in product %}
+          <tr>
+            <td>{{data[0]}}</td>
+            <td>{{data[1]}}</td>
+            <td>{{data[2]}}</td>
+            <td>{{data[3]}}</td>
+            <td>{{data[4]}}</td>
+            <td>{{data[5]}}</td>
+            <td width="130">
+              <a href="/edit2/{{data[0]}}" class="btn btn-secondary btn-sm">edit</a>
+              <a href="/delete2/{{data[0]}}" class="btn btn-danger btn-delete btn-sm">delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- <script>
+  function function1(){
+    
+    var l=document.getElementById('length').value;
+   
+    var s=document.getElementById('pid').value;
+    var select=document.getElementById('name');
+    for(var i=0;i<l;i++){
+      var s1=document.getElementById('productid'+i).value;
+      var d1=document.getElementById('productname'+i).value;
+      if(s1===s){
+        $("#name").html(d1);
+      }
+    }
+  }
+  </script> -->
+  <script>
+    function function1(){
+      var l = document.getElementById('length').value;
+      var s = document.getElementById('pid').value;
+      var select = document.getElementById('name');
+      var fullProductName = ""; // Initialize a variable to store the full product name
+  
+      for(var i = 0; i < l; i++){
+        var s1 = document.getElementById('productid'+i).value;
+        var d1 = document.getElementById('productname'+i).value;
+        
+        if(s1 === s){
+          fullProductName += d1 + " "; // Concatenate the product name with a space
+          $("#name").html(fullProductName); 
+        }
+      }
+  
+      select.innerHTML = fullProductName; // Update the span element with the full product name
+    }
+  </script>
+{% endblock %}

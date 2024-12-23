@@ -1,0 +1,36 @@
+{% extends "adminLayout.html" %}
+{% block body %}
+ 
+  <div class="row">
+    <div class="col-md-4 offset-md-4">
+      <div class="card card-body">
+        <form action="/update2/{{product[0]}}" method="POST">
+          <div class="form-group">
+            <input type="radio" id="s" name="size" value="S">
+             <label for="s">S</label>&nbsp;&nbsp;
+            <input type="radio" id="m" name="size" value="M">
+             <label for="m">M</label>&nbsp;&nbsp;
+            <input type="radio" id="l" name="size" value="L">
+             <label for="l">L</label>&nbsp;&nbsp;
+            <input type="radio" id="xl" name="size" value="XL">
+             <label for="xl">XL</label>&nbsp;&nbsp;
+            <input type="radio" id="xxl" name="size" value="XXL">
+             <label for="xxl">XXL</label>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="quantity" placeholder="Quantity">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="price" placeholder="Price">
+          </div>
+          
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">
+              Update
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
