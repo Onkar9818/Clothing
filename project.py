@@ -11,7 +11,7 @@ bcrypt = Bcrypt(app)
 try:
     locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 except locale.Error:
-    locale.setlocale(locale.LC_ALL, ''
+    locale.setlocale(locale.LC_ALL, '')
 
 config = {
 	"host": "localhost",
