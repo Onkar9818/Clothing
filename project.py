@@ -8,7 +8,10 @@ import uuid
 
 app=Flask(__name__)
 bcrypt = Bcrypt(app)
-locale.setlocale(locale.LC_ALL, 'en_IN')
+try:
+    locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+except locale.Error:
+    locale.setlocale(locale.LC_ALL, ''
 
 config = {
 	"host": "localhost",
